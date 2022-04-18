@@ -40,7 +40,7 @@ init: async function() {
   },
 
   initContract: function() {
-    $.getJSON("Restock.json", function(restock) {
+    $.getJSON("renew_registration.json", function(restock) {
       // Instantiate a new truffle contract from the artifact
       App.contracts.Restock = TruffleContract(restock);
       // Connect provider to interact with contract
@@ -52,7 +52,7 @@ init: async function() {
   },
 
   initRedContract: function() {
-    $.getJSON("Redeem.json", function(redeem) {
+    $.getJSON("buy_registration.json", function(redeem) {
       // Instantiate a new truffle contract from the artifact
       App.contracts.Redeem = TruffleContract(redeem);
       // Connect provider to interact with contract
