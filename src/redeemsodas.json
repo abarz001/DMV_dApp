@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "name": "Coke",
+    "picture": "images/coke.jpg",
+    "count":""
+  },
+  {
+    "id": 2,
+    "name": "Pepsi",
+    "picture": "images/pepsi.jpg",
+    "count":""
+  },
+  {
+    "id": 3,
+    "name": "Dr. Pepper",
+    "picture": "images/drp.jpg",
+    "count":""
+  },
+  {
+    "id": 4,
+    "name": "Mountain Dew",
+    "picture": "images/dew.jpg",
+    "count":""
+  }
+]

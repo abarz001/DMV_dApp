@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>ODU Beverage Redemption</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-sm-8 col-sm-push-2">
+          <h1 class="text-center">ODU Beverage Redemption</h1>
+          <hr/>
+          <br/>
+        </div>
+      </div>
+  
+  <div class="container">
+      <div class="row">
+  <div class="section">
+    Beverage Redemption Contract deployed at: <div id="redContrAddress"></div>
+  </div>
+  <div class="section">
+    Beverage Selection Contract deployed at: <div id="bevContrAddress"></div>
+  </div>
+  <div class="section">
+    Your Address: <div id="accountAddress"></div>
+  </div>
+<br/>
+</div>
+
+<button type="button" class="btn btn-primary btn-lg btn-update">LOAD</button> 
+
+      <div id="bevRow" class="row">
+        <!-- BEVERAGES LOAD HERE -->
+      </div>
+    </div>
+
+    <div id="bevTemplate" style="display: none;">
+      <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="panel panel-default panel-bev">
+          <div class="panel-heading">
+            <h3 class="panel-title">Scrappy</h3>
+          </div>
+          <div class="panel-body">
+            <img alt="140x140" data-src="holder.js/140x140" class="img-rounded img-center" style="width: 100%;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/15-09-26-RalfR-WLC-0098.jpg/340px-15-09-26-RalfR-WLC-0098.jpg" data-holder-rendered="true">
+            <br/><br/>
+            <strong>Name</strong>: <span class="name">Coke</span><br/>
+            <strong>Available<br>To Redeem</strong>: <span class="count">10</span><br/>
+            <select class="select" id = "0">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+            </select>
+            <button class="btn btn-default btn-select" type="button" data-id="0">Select</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/web3.min.js"></script>
+    <script src="js/truffle-contract.js"></script>
+    <script src="js/redeem.js"></script>
+  </body>
+</html>

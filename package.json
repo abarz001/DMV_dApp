@@ -1,0 +1,26 @@
+{
+  "name": "ODU-Beverage",
+  "version": "1.0.0",
+  "description": "",
+  "main": "truffle.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "dev": "lite-server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "lite-server": "^2.5.4"
+  },
+  "dependencies": {
+    "ganache": "^6.4.4",
+    "ganache-cli": "^6.7.0",
+    "ganache-core": "^2.8.0",
+    "oneclick": "^1.0.2",
+    "truffle": "^5.1.1",
+    "web3": "^1.2.4"
+  }
+}
