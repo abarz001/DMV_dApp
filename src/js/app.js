@@ -7,18 +7,18 @@ App = {
 
   // Load products.
     $.getJSON('../vehicles.json', function(data) {
-      var bevRow = $('#bevRow');
-      var bevTemplate = $('#bevTemplate');
+      var carRow = $('#carRow');
+      var carTemplate = $('#carTemplate');
 
       for (i = 0; i < data.length; i ++) {
-        bevTemplate.find('.panel-title').text(data[i].name);
-        bevTemplate.find('img').attr('src', data[i].picture);
-        bevTemplate.find('.name').text(data[i].name);
-        bevTemplate.find('.cost').text(data[i].cost);
-        bevTemplate.find('.select').attr('id', i);
-        bevTemplate.find('.btn-select').attr('data-id', data[i].id);
+        carTemplate.find('.panel-title').text(data[i].name);
+        carTemplate.find('img').attr('src', data[i].picture);
+        carTemplate.find('.vehicle').text(data[i].name);
+        carTemplate.find('.cost').text(data[i].cost);
+        carTemplate.find('.select').attr('id', i);
+        carTemplate.find('.btn-select').attr('data-id', data[i].id);
 
-        bevRow.append(bevTemplate.html());
+        carRow.append(carTemplate.html());
       }
     });
 
@@ -59,9 +59,9 @@ App = {
     $(document).on('click', '.btn-select', App.select);
 
     App.contracts.Beverage.deployed().then(function(instance) {
-      var beverageInstance = instance;
-      $("#contrAddress").html(beverageInstance.address);
-      console.log(beverageInstance.address);
+      var DMV_Wallet = instance;
+      $("#dmvAddress").html(DMV_Wallet.address);
+      console.log(DMV_Wallet.address);
     });
 
      // Load account data
