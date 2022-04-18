@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "name": "Scion Tc",
+    "picture": "images/scion.jpg",
+    "cost": "100000000000000000"
+  },
+  {
+    "id": 2,
+    "name": "Honda Civic",
+    "picture": "images/civic.jpg",
+    "cost": "100000000000000000"
+  },
+  {
+    "id": 3,
+    "name": "Dodge Viper",
+    "picture": "images/viper.jpeg",
+    "cost": "100000000000000000"
+  },
+  {
+    "id": 4,
+    "name": "Ferrari F50",
+    "picture": "images/ferrari.jpg",
+    "cost": "100000000000000000"
+  }
+]
