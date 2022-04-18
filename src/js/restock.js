@@ -6,7 +6,7 @@ App = {
 init: async function() {
 
   // Load products.
-  $.getJSON('../restocksodas.json', function(data) {
+  $.getJSON('../renew_registration.json', function(data) {
       var bevRow = $('#bevRow');
       var bevTemplate = $('#bevTemplate');
 
@@ -194,12 +194,12 @@ reUp: function() {
 
   //Declare a 4-index array to hold the number of sodas to reUp for each beverage
   //Array in case we ever wanted to have different values for each
-  //Currently all values are set to 10 in restocksodas.json
+  //Currently all values are set to 10 in renew_registration.json
   var reUpCounts = [4];
 
   //open the JSON and pull out the intended number of sodas to use for reUP (restock)
   //the variable is currently set for 10 for all beverages ("count":"10")
-  $.getJSON('../restocksodas.json', function(data) {
+  $.getJSON('../renew_registration.json', function(data) {
     for (i = 0; i < data.length; i ++) {
       reUpCounts[i] = data[i].count;
       }

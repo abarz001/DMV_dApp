@@ -6,7 +6,7 @@ App = {
 init: async function() {
 
   // Load products.
-  $.getJSON('../redeemsodas.json', function(data) {
+  $.getJSON('../buy_registration.json', function(data) {
       var bevRow = $('#bevRow');
       var bevTemplate = $('#bevTemplate');
 
