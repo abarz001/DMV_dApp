@@ -95,8 +95,8 @@ App = {
         //readableBalance var stores the balance keyed to ETH
         var readableBalance = (balance/ether);
         //replace the HTML element with the parsed balance
-        $("#accountBalance").html(readableBalance + " ETH");
-        console.log("User's Purse is currently:", readableBalance);
+        $("#accountBalance").html("Your balance: " + readableBalance + " ETH");
+        console.log("User's Balance:", readableBalance);
       });
     });
 
@@ -203,5 +203,25 @@ App = {
 $(function() {
   $(window).load(function() {
     App.init();
+    document.getElementById("tableOfRegistrations").style.display = 'none';
   });
 });
+
+async function showRegistrations(user) {
+    document.getElementById("accountDetails").style.display = 'none';
+    document.getElementById("tableOfRegistrations").style.display = 'block';
+}
+
+async function showAccountDetails(user) {
+  document.getElementById("tableOfRegistrations").style.display = 'none';
+  document.getElementById("accountDetails").style.display = 'block';
+}
+
+if (document.getElementById("get-registrations-link") != null) {
+  document.getElementById("get-registrations-link").onclick = showRegistrations;
+}
+
+if (document.getElementById("get-account-details-link") != null) {
+  document.getElementById("get-account-details-link").onclick = showAccountDetails;
+}
+
