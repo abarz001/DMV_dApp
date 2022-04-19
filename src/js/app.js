@@ -15,6 +15,7 @@ App = {
         carTemplate.find('img').attr('src', data[i].picture);
         carTemplate.find('.vehicle').text(data[i].name);
         carTemplate.find('.cost').text(data[i].cost);
+        carTemplate.find('.year').text(data[i].year);
         carTemplate.find('.select').attr('id', i);
         carTemplate.find('.btn-select').attr('data-id', data[i].id);
 
@@ -87,7 +88,7 @@ App = {
     App.contracts.dmv.deployed().then(function(instance){
       dmvInstance = instance;
       //call the userPurchase mapping using the supplied user account, send result into THEN
-      var userPurse = dmvInstance.userPurchase(web3.eth.accounts[0]).then(function(userPurse){
+      dmvInstance.userPurchase(web3.eth.accounts[0]).then(function(userPurse){
         //parse the integer value of the user's returned purse
         var balance = parseInt(userPurse[0]);
         //constant used for computation
@@ -114,7 +115,6 @@ App = {
       const ether = 1000000000000000000; //1 ether
       //Get the multiplier from the UI dropdown
       var dep = document.getElementById("ETH");
-      console.log("elementbyID:", dep);
       var multiplier = dep.value;
       console.log("ETH Selected:", multiplier);
 

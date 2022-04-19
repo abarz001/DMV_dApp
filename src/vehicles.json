@@ -2,24 +2,28 @@
   {
     "id": 1,
     "name": "Scion Tc",
+    "year": "2012",
     "picture": "images/scion.jpg",
     "cost": "100000000000000000"
   },
   {
     "id": 2,
     "name": "Honda Civic",
+    "year": "2021",
     "picture": "images/civic.jpg",
     "cost": "100000000000000000"
   },
   {
     "id": 3,
     "name": "Dodge Viper",
+    "year": "2016",
     "picture": "images/viper.jpeg",
     "cost": "100000000000000000"
   },
   {
     "id": 4,
     "name": "Ferrari F50",
+    "year": "1996",
     "picture": "images/ferrari.jpg",
     "cost": "100000000000000000"
   }
