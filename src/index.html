@@ -1,84 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>DMV dApp</title>
 
-    <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/dashboard.css" rel="stylesheet">
-  </head>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DMV dApp</title>
 
-  <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">DMV dApp</a>
-    <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse"
-      data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="navbar-nav">
-      <div class="nav-item text-nowrap">
-        <a class="nav-link px-3" href="#" id="accountBalance">Account balance: N/A</a>
-      </div>
+  <!-- Bootstrap -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/dashboard.css" rel="stylesheet">
+</head>
+
+<header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">DMV dApp</a>
+  <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse"
+    data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="navbar-nav">
+    <div class="nav-item text-nowrap">
+      <a class="nav-link px-3" href="#" id="accountBalance">Account balance: N/A</a>
     </div>
-  </header>
+  </div>
+</header>
 
-  <body class="text-center">
-
-
-      <div class="container-fluid">
-        <div class="row">
-          <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-            <div class="position-sticky pt-3">
-              <ul class="nav flex-column">
-                <li class="nav-item">
-                  <a id="get-account-details-link" class="nav-link active" aria-current="page" href="#">
-                    <span data-feather="home"></span>
-                    Account Home / Deposit
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a id="get-registrations-link" class="nav-link" href="#">
-                    <span data-feather="file" id="get-registrations-link"></span>
-                    Renew Vehicle Registrations
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </nav>
-            <h2><img class="mb-4" src="logo.png" alt="" width="200" height="200"></h2>
+<body class="text-center">
+  <div class="container-fluid">
+    <div class="row">
+      <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+        <div class="position-sticky pt-3">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a id="get-account-details-link" class="nav-link" aria-current="page" href="#">
+                <span data-feather="home"></span>
+                Account Home / Deposit
+              </a>
+            </li>
+            <li class="nav-item">
+              <a id="get-registrations-link" class="nav-link" href="#">
+                Renew Vehicle Registrations
+              </a>
+            </li>
+            <li class="nav-item">
+              <a id="get-address-update-link" class="nav-link" href="#">
+                Update Address Information
+              </a>
+            </li>
+            <li class="nav-item">
+              <a id="get-report-vehicle-sold-link" class="nav-link" href="#">
+                Report Vehicle Sold
+              </a>
+            </li>
+            <li class="nav-item">
+              <a id="get-register-new-vehicle-link" class="nav-link" href="#">
+                Register New Vehicle
+              </a>
+            </li>
+          </ul>
         </div>
-      </div>
-  
+      </nav>
+      <h2><img class="mb-4" src="logo.png" alt="" width="200" height="200"></h2>
+    </div>
+  </div>
+
 
   <div class="container" id="accountDetails">
-      <div class="row">
-  
-<div class="section">
-<select class="select" id = "ETH">
-      <option value="0.01">0.01 ETH</option>
-      <option value="0.1">0.1 ETH</option>
-      <option value="0.5">0.5 ETH</option>
-    </select><br/><br>
-    <button type="button" class="w-15 btn btn-primary btn-deposit">Deposit Into Your DMV Balance</button>
-    <button type="button" class="w-15 btn btn-primary btn-return">Withdraw DMV Balance Back To Wallet</button> 
-</div>
-</div> <br/>
-<div class="section">
-  <b>DMV wallet address:</b> <div id="dmvAddress"></div>
-</div><br>
-<div class="section">
-  <b>Your wallet address:</b> <div id="accountAddress"></div>
-</div><br>
+    <div class="row">
 
-<hr/>
-</div>
-<div class="container" id="tableOfRegistrations">
-      <div id="carRow" class="row">
-        <!-- CARS LOAD HERE -->
+      <div class="section">
+        <select class="select" id="ETH">
+          <option value="0.01">0.01 ETH</option>
+          <option value="0.1">0.1 ETH</option>
+          <option value="0.5">0.5 ETH</option>
+        </select><br /><br>
+        <button type="button" class="w-15 btn btn-primary btn-deposit">Deposit Into Your DMV Balance</button>
+        <button type="button" class="w-15 btn btn-primary btn-return">Withdraw DMV Balance Back To Wallet</button>
       </div>
-    
+    </div> <br />
+    <div class="section">
+      <b>DMV wallet address:</b>
+      <div id="dmvAddress"></div>
+    </div><br>
+    <div class="section">
+      <b>Your wallet address:</b>
+      <div id="accountAddress"></div>
+    </div><br>
+
+  </div>
+  <div class="container" id="tableOfRegistrations">
+    <div id="carRow" class="row">
+      <!-- CARS LOAD HERE -->
+    </div>
+
 
     <div id="carTemplate" style="display: none;">
       <div class="col-sm-6 col-md-4 col-lg-3">
@@ -87,11 +101,12 @@
             <h3 class="panel-title">Cars</h3>
           </div>
           <div class="panel-body">
-            <img alt="140x140" data-src="holder.js/140x140" class="img-rounded img-center" style="width: 100%;" src="./images/scion.jpg" data-holder-rendered="true">
-            <br/><br/>
-            <strong>Vehicle Brand</strong>: <span class="vehicle">Toyota</span><br/>
-            <strong>Registration Cost</strong>: <span class="cost">100000000</span><br/>
-            <select class="select" id = "0">
+            <img alt="140x140" data-src="holder.js/140x140" class="img-rounded img-center" style="width: 100%;"
+              src="./images/scion.jpg" data-holder-rendered="true">
+            <br /><br />
+            <strong>Vehicle Brand</strong>: <span class="vehicle">Toyota</span><br />
+            <strong>Registration Cost</strong>: <span class="cost">100000000</span><br />
+            <select class="select" id="0">
               <option value="1">1 year</option>
               <option value="2">2 years</option>
               <option value="3">3 years</option>
@@ -103,15 +118,29 @@
     </div>
   </div>
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/web3.min.js"></script>
-    <script src="js/truffle-contract.js"></script>
-    <script src="js/app.js"></script>
-    <script src="js/dashboard.js"></script>
-    
-  </body>
+
+  <div class="container">
+    <div id="addressContainer"  style="display: none;">Address Update Stuff Here</div>
+  </div>
+
+
+  <div class="container">
+    <div id="reportSoldVehicleContainer"  style="display: none;">Report Vehicle Sold</div>
+  </div>
+
+  <div class="container">
+    <div id="registerNewVehicleContainer"  style="display: none;">Register New Vehicle</div>
+  </div>
+
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/web3.min.js"></script>
+  <script src="js/truffle-contract.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/dashboard.js"></script>
+
+</body>
 
 </html>

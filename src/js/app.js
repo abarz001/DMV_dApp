@@ -204,24 +204,75 @@ $(function() {
   $(window).load(function() {
     App.init();
     document.getElementById("tableOfRegistrations").style.display = 'none';
+    document.getElementById("addressContainer").style.display = 'none';
+    document.getElementById("reportSoldVehicleContainer").style.display = 'none';
+    document.getElementById("registerNewVehicleContainer").style.display = 'none';
   });
 });
 
-async function showRegistrations(user) {
-    document.getElementById("accountDetails").style.display = 'none';
-    document.getElementById("tableOfRegistrations").style.display = 'block';
+async function showAccountDetails() {
+  document.getElementById("accountDetails").style.display = 'block';
+  document.getElementById("tableOfRegistrations").style.display = 'none';
+  document.getElementById("addressContainer").style.display = 'none';
+  document.getElementById("reportSoldVehicleContainer").style.display = 'none';
+  document.getElementById("registerNewVehicleContainer").style.display = 'none';
 }
 
-async function showAccountDetails(user) {
+
+async function showRegistrations() {
+    document.getElementById("accountDetails").style.display = 'none';
+    document.getElementById("tableOfRegistrations").style.display = 'block';
+    document.getElementById("addressContainer").style.display = 'none';
+    document.getElementById("reportSoldVehicleContainer").style.display = 'none';
+    document.getElementById("registerNewVehicleContainer").style.display = 'none';
+}
+
+
+async function showAddressUpdate() {
+  document.getElementById("accountDetails").style.display = 'none';
   document.getElementById("tableOfRegistrations").style.display = 'none';
-  document.getElementById("accountDetails").style.display = 'block';
+  document.getElementById("addressContainer").style.display = 'block';
+  document.getElementById("reportSoldVehicleContainer").style.display = 'none';
+  document.getElementById("registerNewVehicleContainer").style.display = 'none';
+}
+
+async function registerNewVehicle() {
+  document.getElementById("accountDetails").style.display = 'none';
+  document.getElementById("tableOfRegistrations").style.display = 'none';
+  document.getElementById("addressContainer").style.display = 'none';
+  document.getElementById("reportSoldVehicleContainer").style.display = 'none';
+  document.getElementById("registerNewVehicleContainer").style.display = 'block';
+}
+
+async function reportVehicleSold() {
+  document.getElementById("accountDetails").style.display = 'none';
+  document.getElementById("tableOfRegistrations").style.display = 'none';
+  document.getElementById("addressContainer").style.display = 'none';
+  document.getElementById("reportSoldVehicleContainer").style.display = 'block';
+  document.getElementById("registerNewVehicleContainer").style.display = 'none';
+}
+
+if (document.getElementById("get-account-details-link") != null) {
+  document.getElementById("get-account-details-link").onclick = showAccountDetails;
 }
 
 if (document.getElementById("get-registrations-link") != null) {
   document.getElementById("get-registrations-link").onclick = showRegistrations;
 }
 
-if (document.getElementById("get-account-details-link") != null) {
-  document.getElementById("get-account-details-link").onclick = showAccountDetails;
+
+if (document.getElementById("get-address-update-link") != null) {
+  console.log('?');
+  document.getElementById("get-address-update-link").onclick = showAddressUpdate;
 }
+
+if (document.getElementById("get-register-new-vehicle-link") != null) {
+  document.getElementById("get-register-new-vehicle-link").onclick = registerNewVehicle;
+}
+
+if (document.getElementById("get-report-vehicle-sold-link") != null) {
+  console.log('?');
+  document.getElementById("get-report-vehicle-sold-link").onclick = reportVehicleSold;
+}
+
 
