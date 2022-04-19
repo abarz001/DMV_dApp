@@ -41,11 +41,11 @@ App = {
   },
 
   initContract: function() {
-    $.getJSON("Beverage.json", function(beverage) {
+    $.getJSON("DMV.json", function(dmv) {
       // Instantiate a new truffle contract from the artifact
-      App.contracts.Beverage = TruffleContract(beverage);
+      App.contracts.dmv = TruffleContract(dmv);
       // Connect provider to interact with contract
-      App.contracts.Beverage.setProvider(App.web3Provider);
+      App.contracts.dmv.setProvider(App.web3Provider);
 
       return App.bindEvents();
     });
@@ -58,7 +58,7 @@ App = {
     $(document).on('click', '.btn-return', App.cReturn);
     $(document).on('click', '.btn-select', App.select);
 
-    App.contracts.Beverage.deployed().then(function(instance) {
+    App.contracts.dmv.deployed().then(function(instance) {
       var DMV_Wallet = instance;
       $("#dmvAddress").html(DMV_Wallet.address);
       console.log(DMV_Wallet.address);
@@ -82,12 +82,12 @@ App = {
 
 
   updatePurse: function(){
-    var beverageInstance; 
-    //ensure the Beverage contract is deployed before trying to access its instance
-    App.contracts.Beverage.deployed().then(function(instance){
-      beverageInstance = instance;
+    var dmvInstance; 
+    //ensure the dmv contract is deployed before trying to access its instance
+    App.contracts.dmv.deployed().then(function(instance){
+      dmvInstance = instance;
       //call the userPurchase mapping using the supplied user account, send result into THEN
-      var userPurse = beverageInstance.userPurchase(web3.eth.accounts[0]).then(function(userPurse){
+      var userPurse = dmvInstance.userPurchase(web3.eth.accounts[0]).then(function(userPurse){
         //parse the integer value of the user's returned purse
         var balance = parseInt(userPurse[0]);
         //constant used for computation
@@ -104,11 +104,11 @@ App = {
 
   depositEth: function() {
     //variable intended to store the deployed beverage contract
-    var beverageInstance;
+    var dmvInstance;
     
-    //Get the deployed Beverage contract and store the instance in beverageInstance var
-    App.contracts.Beverage.deployed().then(function(instance) {
-      beverageInstance = instance;
+    //Get the deployed Beverage contract and store the instance in dmvInstance var
+    App.contracts.dmv.deployed().then(function(instance) {
+      dmvInstance = instance;
 
       //This is the amount each deposit transaction will send to the contract using the [Deposit Button]
       const ether = 1000000000000000000; //1 ether
@@ -123,7 +123,7 @@ App = {
     
       //Execute deposit() as a transaction by sending the depCoin
       //The contract will recognize the buyer as msg.sender 
-      return beverageInstance.deposit({value: depCoin});
+      return dmvInstance.deposit({value: depCoin});
     }).then(function() {
       //call to update the user's current purse display 
       App.updatePurse();
@@ -132,12 +132,12 @@ App = {
 
 
   cReturn: function() {
-    var beverageInstance;
+    var dmvInstance;
 
-    App.contracts.Beverage.deployed().then(function(instance) {
-      beverageInstance = instance;
+    App.contracts.dmv.deployed().then(function(instance) {
+      dmvInstance = instance;
       //call to coinReturn() reimburses all of the user's deposited amount back to user
-      return beverageInstance.coinReturn();
+      return dmvInstance.coinReturn();
     }).then(function(){
       //call to update the user's current purse display 
       App.updatePurse();
@@ -146,26 +146,26 @@ App = {
 
 
   select: function() {
-    var beverageInstance;
+    var dmvInstance;
 
-    App.contracts.Beverage.deployed().then(function(instance) {
-      beverageInstance = instance;
+    App.contracts.dmv.deployed().then(function(instance) {
+      dmvInstance = instance;
 
-      //set bevId to the int that corresponds to the select buttons
-      //i.e. bevId = [1(coke) || 2(pepsi) || 3(Dr. Pep) || 4(Mnt. Dew)]
-      var bevId = parseInt($(event.target).data('id'));
-      console.log(bevId);
+      //set dmvID to the int that corresponds to the select buttons
+      //i.e. dmvID = [1(coke) || 2(pepsi) || 3(Dr. Pep) || 4(Mnt. Dew)]
+      var dmvID = parseInt($(event.target).data('id'));
+      console.log(dmvID);
 
       //Grab the number of beverages from the dropdown selection
-      //bevId - 1 because bevId is keyed to 1-4 and ElementIds are keyed to 0-3
-      var element = bevId - 1;
-      var bevSelect = document.getElementById(element);
-      console.log("elementbyID:", bevSelect);
-      var bevCount = bevSelect.value;
-      console.log("Quantity Selected:", bevCount);
+      //dmvID - 1 because dmvId is keyed to 1-4 and ElementIds are keyed to 0-3
+      var element = dmvID - 1;
+      var dmvSelect = document.getElementById(element);
+      console.log("elementbyID:", dmvSelect);
+      var dmvCount = dmvSelect.value;
+      console.log("Quantity Selected:", dmvCount);
     
       //Call the select() function THEN update the purse with the local value
-      beverageInstance.select(bevId, bevCount).then(function(){
+      dmvInstance.select(dmvID, dmvCount).then(function(){
         //call to update the user's current purse display 
         App.updatePurse();
       });
@@ -176,18 +176,18 @@ App = {
 
   updateCost: function(value){
     //Update the beverage cost with the supplied value
-    $('.panel-bev').find('.cost').text(value + "ETH");
+    $('.panel-dmv').find('.cost').text(value + "ETH");
   },
 
 
   getCost: function(){
     const ether = 1000000000000000000; //1 ether
 
-    //Ensure that Beverages has been deployed
-    App.contracts.Beverage.deployed().then(function(instance) {
-      beverageInstance = instance;
+    //Ensure that dmv has been deployed
+    App.contracts.dmv.deployed().then(function(instance) {
+      dmvInstance = instance;
       //newPrice is pulled from getPrice() and sent to THEN
-      var newPrice = beverageInstance.getPrice().then(function(newPrice){
+      var newPrice = dmvInstance.getPrice().then(function(newPrice){
         //readablePrice is just the price keyed to ETH instead of WEI
         var readablePrice = (newPrice/ether);
         console.log("Global Price is Currently:", readablePrice);

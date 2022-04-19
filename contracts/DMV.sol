@@ -1,6 +1,6 @@
 pragma solidity >=0.4.22 <0.6.0;
 
-contract Beverage {
+contract DMV {
 
     //Variable to hold the msg.sender's address
     //Set to payable since we may have to return unused deposited funds after purchase 
