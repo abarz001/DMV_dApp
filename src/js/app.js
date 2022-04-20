@@ -1,3 +1,4 @@
+//The init functions and balance related functions have been reused from CS764 ODU's example
 App = {
   web3Provider: null,
   contracts: {},
@@ -16,7 +17,7 @@ App = {
         carTemplate.find('.vehicle').text(data[i].name);
         carTemplate.find('.cost').text(data[i].cost);
         carTemplate.find('.year').text(data[i].year);
-        carTemplate.find('.select').attr('id', i);
+        carTemplate.find('.select').attr('id', i); //sets the index number for the chosen vehicle so it can be selected properly
         carTemplate.find('.btn-select').attr('data-id', data[i].id);
 
         carRow.append(carTemplate.html());
@@ -57,6 +58,7 @@ App = {
     $(document).on('click', '.btn-deposit', App.depositEth);
     $(document).on('click', '.btn-return', App.cReturn);
     $(document).on('click', '.btn-select', App.select);
+    $(document).on('click', '.btn-test', App.newTestFunction);
 
     App.contracts.dmv.deployed().then(function (instance) {
       var DMV_Wallet = instance;
@@ -86,7 +88,7 @@ App = {
       dmvInstance = instance;
 
       dmvInstance.userPurchase(web3.eth.accounts[0]).then(function (userPurse) {
-      var balance = parseInt(userPurse[0]);
+        var balance = parseInt(userPurse[0]);
         //constant used for computation
         const ether = 1000000000000000000; //1 ether
         //readableBalance var stores the balance keyed to ETH
@@ -100,10 +102,7 @@ App = {
   },
 
   depositEth: function () {
-    //store dmv contract instance
     var dmvInstance;
-
-    //Get deployed dmv contract, store instance in dmvInstance
     App.contracts.dmv.deployed().then(function (instance) {
       dmvInstance = instance;
 
@@ -129,7 +128,6 @@ App = {
 
   cReturn: function () {
     var dmvInstance;
-
     App.contracts.dmv.deployed().then(function (instance) {
       dmvInstance = instance;
       //call to coinReturn() reimburses all of the user's deposited amount back to user
@@ -143,32 +141,29 @@ App = {
 
   select: function () {
     var dmvInstance;
-
     App.contracts.dmv.deployed().then(function (instance) {
       dmvInstance = instance;
 
-      //set dmvID to the int that corresponds to the select buttons
-      //i.e. dmvID = [1(coke) || 2(pepsi) || 3(Dr. Pep) || 4(Mnt. Dew)]
-      var dmvID = parseInt($(event.target).data('id'));
-      console.log(dmvID);
+      //set vehicleID to the int that corresponds to the select buttons
+      var vehicleID = parseInt($(event.target).data('id'));
+      console.log(vehicleID);
 
       //Grab the number of vehicles from the dropdown selection
-      //dmvID - 1 because dmvId is keyed to 1-4 and ElementIds are keyed to 0-3
-      var element = dmvID - 1;
-      var dmvSelect = document.getElementById(element);
-      console.log("elementbyID:", dmvSelect);
-      var dmvCount = dmvSelect.value;
-      console.log("Quantity Selected:", dmvCount);
+      //vehicleID - 1 because vehicleID is keyed to 1-4 and ElementIds are keyed to 0-3
+      var vehicleIDIndex = vehicleID - 1;
+      var selectedVehicle = document.getElementById(vehicleIDIndex);
+      console.log("elementbyID:", selectedVehicle);
+      var vehicleRegCount = selectedVehicle.value;
+      console.log("Quantity Selected:", vehicleRegCount);
 
       //Call the select() function THEN update the purse with the local value
-      dmvInstance.select(dmvID, dmvCount).then(function () {
+      dmvInstance.select(vehicleID, vehicleRegCount).then(function () {
         //call to update the user's current purse display 
         App.updatePurse();
       });
     });
 
   },
-
 
   updateCost: function (value) {
     //Update the vehicle registration cost with the supplied value
@@ -188,6 +183,18 @@ App = {
         console.log("Global Price is Currently:", readablePrice);
         //update the Cost on the UI
         App.updateCost(readablePrice);
+      });
+    });
+  },
+
+  newTestFunction: function () {
+    App.contracts.dmv.deployed().then(function (instance) {
+      dmvInstance = instance;
+      dmvInstance.getRegCounts().then(function (numReturned) {
+        console.log("Num Years Scion Registered:", numReturned[0].toString());
+        console.log("Num Years Civic Registered:", numReturned[1].toString());
+        console.log("Num Years Viper Registered:", numReturned[2].toString());
+        console.log("Num Years Ferrari Registered:", numReturned[3].toString());
       });
     });
   },
