@@ -58,7 +58,7 @@ App = {
     $(document).on('click', '.btn-deposit', App.depositEth);
     $(document).on('click', '.btn-return', App.cReturn);
     $(document).on('click', '.btn-select', App.select);
-    $(document).on('click', '.btn-test', App.newTestFunction);
+    $(document).on('click', '#get-registrations-link', App.calculateYearsRegistered);
 
     App.contracts.dmv.deployed().then(function (instance) {
       var DMV_Wallet = instance;
@@ -160,6 +160,12 @@ App = {
       dmvInstance.select(vehicleID, vehicleRegCount).then(function () {
         //call to update the user's current purse display 
         App.updatePurse();
+
+        console.log("URL hash: ", window.location.hash);
+        if (window.location.hash == "#renewRegistration")
+        {
+          document.getElementById("get-registrations-link").click();
+        }
       });
     });
 
@@ -187,7 +193,7 @@ App = {
     });
   },
 
-  newTestFunction: function () {
+  calculateYearsRegistered: function () {
     App.contracts.dmv.deployed().then(function (instance) {
       dmvInstance = instance;
       dmvInstance.userPurchase(web3.eth.accounts[0]).then(function (userPurse){
@@ -195,6 +201,12 @@ App = {
         console.log("Num Years Civic Registered:", userPurse[2].toString());
         console.log("Num Years Viper Registered:", userPurse[3].toString());
         console.log("Num Years Ferrari Registered:", userPurse[4].toString());
+
+        //Update registration counts
+        $('.panel-dmv').eq(0).find('.yearsReg').text(userPurse[1].toString());
+        $('.panel-dmv').eq(1).find('.yearsReg').text(userPurse[2].toString());
+        $('.panel-dmv').eq(2).find('.yearsReg').text(userPurse[3].toString());
+        $('.panel-dmv').eq(3).find('.yearsReg').text(userPurse[4].toString());
       });
     });
   },
