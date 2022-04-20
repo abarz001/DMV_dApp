@@ -190,16 +190,14 @@ App = {
   newTestFunction: function () {
     App.contracts.dmv.deployed().then(function (instance) {
       dmvInstance = instance;
-      dmvInstance.getRegCounts().then(function (numReturned) {
-        console.log("Num Years Scion Registered:", numReturned[0].toString());
-        console.log("Num Years Civic Registered:", numReturned[1].toString());
-        console.log("Num Years Viper Registered:", numReturned[2].toString());
-        console.log("Num Years Ferrari Registered:", numReturned[3].toString());
+      dmvInstance.userPurchase(web3.eth.accounts[0]).then(function (userPurse){
+        console.log("Num Years Scion Registered:", userPurse[1].toString());
+        console.log("Num Years Civic Registered:", userPurse[2].toString());
+        console.log("Num Years Viper Registered:", userPurse[3].toString());
+        console.log("Num Years Ferrari Registered:", userPurse[4].toString());
       });
     });
   },
-
-
 };
 
 $(function () {
