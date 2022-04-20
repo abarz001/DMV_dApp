@@ -29,6 +29,7 @@ contract DMV {
         addVehicle("Viper");
         addVehicle("Ferrari");
     }
+
     function addVehicle(string memory _name) private {
         numVehicleRegistrations++;
         vehicles[numVehicleRegistrations] = Vehicles(
@@ -56,10 +57,7 @@ contract DMV {
     }
 
     function deposit() public payable returns (uint256, uint256) {
-        require(
-            msg.value >= globalPrice,
-            "Error"
-        );
+        require(msg.value >= globalPrice, "Error");
         buyer = msg.sender;
         userPurchase[buyer].purse += msg.value;
         return (address(this).balance, userPurchase[buyer].purse);
@@ -69,7 +67,10 @@ contract DMV {
         userPurchase[buyer].purse -= _totalCost;
     }
 
-    function select(uint256 vehicleID, uint256 _count) public payable returns (bool)
+    function select(uint256 vehicleID, uint256 _count)
+        public
+        payable
+        returns (bool)
     {
         buyer = msg.sender;
 
@@ -79,10 +80,7 @@ contract DMV {
             "Error: Insufficient Funds"
         );
 
-        require(
-            (vehicleID > 0 && vehicleID < 5),
-            "Error: Invalid Selection"
-        );
+        require((vehicleID > 0 && vehicleID < 5), "Error: Invalid Selection");
 
         uint256 totalCost = _count * vehicles[vehicleID].cost;
 
@@ -107,5 +105,23 @@ contract DMV {
 
         buyer.transfer(userPurchase[buyer].purse);
         userPurchase[buyer].purse -= userPurchase[buyer].purse;
+    }
+
+    function getRegCounts()
+        public
+        view
+        returns (
+            uint256,
+            uint256,
+            uint256,
+            uint256
+        )
+    {
+        return (
+            userPurchase[buyer].scionRenewCount,
+            userPurchase[buyer].civicRenewCount,
+            userPurchase[buyer].viperRenewCount,
+            userPurchase[buyer].ferrariRenewCount
+        );
     }
 }
