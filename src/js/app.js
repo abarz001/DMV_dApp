@@ -59,6 +59,8 @@ App = {
     $(document).on('click', '.btn-return', App.cReturn);
     $(document).on('click', '.btn-select', App.select);
     $(document).on('click', '#get-registrations-link', App.calculateYearsRegistered);
+    $(document).on('click', '#btn-update-address', App.updateAddress);
+    $(document).on('click', '#get-address-update-link', App.grabAddress);
 
     App.contracts.dmv.deployed().then(function (instance) {
       var DMV_Wallet = instance;
@@ -100,6 +102,45 @@ App = {
     });
 
   },
+
+  updateAddress: function () {
+    var dmvInstance;
+    //deploy dmv contract then set the instance variable
+    App.contracts.dmv.deployed().then(function (instance) {
+      dmvInstance = instance;
+      dmvInstance.userAddress(web3.eth.accounts[0]).then(function (userAddress) {
+        dmvInstance.updateUserAddress(document.getElementById("custName").value,
+        document.getElementById("street").value,
+        document.getElementById("city").value,
+        document.getElementById("state").value,
+        document.getElementById("phone").value);
+        // console.log("User's State:", userAddress[0]);
+        // console.log("User's State:", userAddress[1]);
+        // console.log("User's State:", userAddress[2]);
+        // console.log("User's State:", userAddress[3]);
+        // console.log("User's State:", userAddress[4]);
+      }).then(function () {
+      App.updatePurse();
+      })
+    });
+  },
+
+  grabAddress : function () {
+    var dmvInstance;
+    //deploy dmv contract then set the instance variable
+    App.contracts.dmv.deployed().then(function (instance) {
+      dmvInstance = instance;
+      dmvInstance.userAddress(web3.eth.accounts[0]).then(function (userAddress) {
+        document.getElementById('custName').value = userAddress[0].toString();
+        document.getElementById('street').value = userAddress[1].toString();
+        document.getElementById('city').value = userAddress[2].toString();
+        document.getElementById('state').value = userAddress[3].toString();
+        document.getElementById('phone').value = userAddress[4].toString();
+      });
+    });
+    
+  },
+
 
   depositEth: function () {
     var dmvInstance;

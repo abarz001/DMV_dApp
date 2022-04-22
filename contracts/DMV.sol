@@ -17,9 +17,17 @@ contract DMV {
         uint256 viperRenewCount;
         uint256 ferrariRenewCount;
     }
+    struct AddressDetails{
+        string custName;
+        string street;
+        string city;
+        string state;
+        string phone;
+    }
     uint256 numVehicleRegistrations = 0;
     mapping(uint256 => Vehicles) public vehicles;
     mapping(address => Purchases) public userPurchase;
+    mapping(address => AddressDetails) public userAddress;
 
     constructor() public {
         globalPrice = 1000000000000000; // 0.001 Eth
@@ -65,6 +73,14 @@ contract DMV {
 
     function updateUserBalance(uint256 _totalCost) private {
         userPurchase[buyer].purse -= _totalCost;
+    }
+
+    function updateUserAddress(string memory _custName, string memory _street, string memory _city, string memory _state, string memory _phone) public {
+        userAddress[msg.sender].custName = _custName;
+        userAddress[msg.sender].street = _street;
+        userAddress[msg.sender].city = _city;
+        userAddress[msg.sender].state = _state;
+        userAddress[msg.sender].phone = _phone;
     }
 
     function select(uint256 vehicleID, uint256 _count)

@@ -114,7 +114,7 @@
               <option value="2">2 years</option>
               <option value="3">3 years</option>
             </select>
-            <button class="btn btn-default btn-select" type="button" data-id="0">Renew</button>
+            <button class="w-15 btn btn-primary btn-select" type="button" data-id="0">Renew</button>
           </div>
         </div>
       </div>
@@ -123,7 +123,24 @@
 
 
   <div class="container">
-    <div id="addressContainer"  style="display: none;">Address Update Stuff Here</div>
+    <div id="addressContainer"  style="display: none;">
+      <div class="panel panel-default panel-address">
+        <table>
+
+        <div class="panel-heading">
+          <tr><th><h3 class="panel-title">User Address Information</h3></th></tr>
+        </div>
+        <div class="panel-body">
+          <tr><th><strong>Customer Name</strong>:</th>   <th><input id="custName" type="text" value=""></th></tr>
+          <tr><th><strong>Street</strong>:</th>    <th><input id="street" type="text" value=""></th></tr>
+          <tr><th><strong>City</strong>:</th>    <th><input id="city" type="text" value=""></th></tr>
+          <tr><th><strong>State</strong>:</th>    <th><input id="state" type="text" value=""></th></tr>
+          <tr><th><strong>Phone</strong>:</th>    <th><input id="phone" type="text" value=""></th></tr>
+          <tr> <th><button id="btn-update-address" class="w-15 btn btn-primary" type="button">Update Information</button> </th></tr>
+        </table>
+        </div>
+      </div>
+    </div>
   </div>
 
 
