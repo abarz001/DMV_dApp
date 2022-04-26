@@ -58,7 +58,7 @@ App = {
     $(document).on('click', '.btn-deposit', App.depositEth);
     $(document).on('click', '.btn-return', App.cReturn);
     $(document).on('click', '.btn-select', App.select);
-    $(document).on('click', '#get-registrations-link', App.calculateYearsRegistered);
+    $(document).on('click', '#get-my-vehicles-link', App.calculateYearsRegistered);
     $(document).on('click', '#btn-update-address', App.updateAddress);
     $(document).on('click', '#get-address-update-link', App.grabAddress);
 
@@ -203,9 +203,9 @@ App = {
         App.updatePurse();
 
         console.log("URL hash: ", window.location.hash);
-        if (window.location.hash == "#renewRegistration")
+        if (window.location.hash == "#myVehicles")
         {
-          document.getElementById("get-registrations-link").click();
+          document.getElementById("get-my-vehicles-link").click();
         }
       });
     });
@@ -256,7 +256,7 @@ App = {
 $(function () {
   $(window).load(function () {
     App.init();
-    document.getElementById("tableOfRegistrations").style.display = 'none';
+    document.getElementById("tableOfMyVehicles").style.display = 'none';
     document.getElementById("addressContainer").style.display = 'none';
     document.getElementById("reportSoldVehicleContainer").style.display = 'none';
     document.getElementById("registerNewVehicleContainer").style.display = 'none';
@@ -265,7 +265,7 @@ $(function () {
 
 async function showAccountDetails() {
   document.getElementById("accountDetails").style.display = 'block';
-  document.getElementById("tableOfRegistrations").style.display = 'none';
+  document.getElementById("tableOfMyVehicles").style.display = 'none';
   document.getElementById("addressContainer").style.display = 'none';
   document.getElementById("reportSoldVehicleContainer").style.display = 'none';
   document.getElementById("registerNewVehicleContainer").style.display = 'none';
@@ -274,7 +274,7 @@ async function showAccountDetails() {
 
 async function showRegistrations() {
   document.getElementById("accountDetails").style.display = 'none';
-  document.getElementById("tableOfRegistrations").style.display = 'block';
+  document.getElementById("tableOfMyVehicles").style.display = 'block';
   document.getElementById("addressContainer").style.display = 'none';
   document.getElementById("reportSoldVehicleContainer").style.display = 'none';
   document.getElementById("registerNewVehicleContainer").style.display = 'none';
@@ -283,7 +283,7 @@ async function showRegistrations() {
 
 async function showAddressUpdate() {
   document.getElementById("accountDetails").style.display = 'none';
-  document.getElementById("tableOfRegistrations").style.display = 'none';
+  document.getElementById("tableOfMyVehicles").style.display = 'none';
   document.getElementById("addressContainer").style.display = 'block';
   document.getElementById("reportSoldVehicleContainer").style.display = 'none';
   document.getElementById("registerNewVehicleContainer").style.display = 'none';
@@ -291,7 +291,7 @@ async function showAddressUpdate() {
 
 async function registerNewVehicle() {
   document.getElementById("accountDetails").style.display = 'none';
-  document.getElementById("tableOfRegistrations").style.display = 'none';
+  document.getElementById("tableOfMyVehicles").style.display = 'none';
   document.getElementById("addressContainer").style.display = 'none';
   document.getElementById("reportSoldVehicleContainer").style.display = 'none';
   document.getElementById("registerNewVehicleContainer").style.display = 'block';
@@ -299,7 +299,7 @@ async function registerNewVehicle() {
 
 async function reportVehicleSold() {
   document.getElementById("accountDetails").style.display = 'none';
-  document.getElementById("tableOfRegistrations").style.display = 'none';
+  document.getElementById("tableOfMyVehicles").style.display = 'none';
   document.getElementById("addressContainer").style.display = 'none';
   document.getElementById("reportSoldVehicleContainer").style.display = 'block';
   document.getElementById("registerNewVehicleContainer").style.display = 'none';
@@ -309,8 +309,8 @@ if (document.getElementById("get-account-details-link") != null) {
   document.getElementById("get-account-details-link").onclick = showAccountDetails;
 }
 
-if (document.getElementById("get-registrations-link") != null) {
-  document.getElementById("get-registrations-link").onclick = showRegistrations;
+if (document.getElementById("get-my-vehicles-link") != null) {
+  document.getElementById("get-my-vehicles-link").onclick = showRegistrations;
 }
 
 
