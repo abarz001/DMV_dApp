@@ -110,22 +110,22 @@ App = {
       dmvInstance = instance;
       dmvInstance.userAddress(web3.eth.accounts[0]).then(function (userAddress) {
         dmvInstance.updateUserAddress(document.getElementById("custName").value,
-        document.getElementById("street").value,
-        document.getElementById("city").value,
-        document.getElementById("state").value,
-        document.getElementById("phone").value);
+          document.getElementById("street").value,
+          document.getElementById("city").value,
+          document.getElementById("state").value,
+          document.getElementById("phone").value);
         // console.log("User's State:", userAddress[0]);
         // console.log("User's State:", userAddress[1]);
         // console.log("User's State:", userAddress[2]);
         // console.log("User's State:", userAddress[3]);
         // console.log("User's State:", userAddress[4]);
       }).then(function () {
-      App.updatePurse();
+        App.updatePurse();
       })
     });
   },
 
-  grabAddress : function () {
+  grabAddress: function () {
     var dmvInstance;
     //deploy dmv contract then set the instance variable
     App.contracts.dmv.deployed().then(function (instance) {
@@ -138,7 +138,7 @@ App = {
         document.getElementById('phone').value = userAddress[4].toString();
       });
     });
-    
+
   },
 
 
@@ -203,8 +203,7 @@ App = {
         App.updatePurse();
 
         console.log("URL hash: ", window.location.hash);
-        if (window.location.hash == "#myVehicles")
-        {
+        if (window.location.hash == "#myVehicles") {
           document.getElementById("get-my-vehicles-link").click();
         }
       });
@@ -237,7 +236,7 @@ App = {
   calculateYearsRegistered: function () {
     App.contracts.dmv.deployed().then(function (instance) {
       dmvInstance = instance;
-      dmvInstance.userPurchase(web3.eth.accounts[0]).then(function (userPurse){
+      dmvInstance.userPurchase(web3.eth.accounts[0]).then(function (userPurse) {
         console.log("Num Years Scion Registered:", userPurse[1].toString());
         console.log("Num Years Civic Registered:", userPurse[2].toString());
         console.log("Num Years Viper Registered:", userPurse[3].toString());
@@ -248,6 +247,13 @@ App = {
         $('.panel-dmv').eq(1).find('.yearsReg').text(userPurse[2].toString());
         $('.panel-dmv').eq(2).find('.yearsReg').text(userPurse[3].toString());
         $('.panel-dmv').eq(3).find('.yearsReg').text(userPurse[4].toString());
+        //$('.panel-dmv:contains("Years Currently Registered: 0")').hide()
+        var divs = document.querySelectorAll(".panel-dmv");
+        Array.from(divs).forEach(function (div) {
+          if (div.textContent.indexOf("Years Currently Registered: 0") >= 0) {
+            div.style.display = "none";
+          }
+        });
       });
     });
   },

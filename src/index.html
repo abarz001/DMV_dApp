@@ -96,14 +96,13 @@
 
 
     <div id="carTemplate" style="display: none;">
-      <div class="col-sm-6 col-md-4 col-lg-3">
         <div class="panel panel-default panel-dmv">
           <div class="panel-heading">
             <h3 class="panel-title">Cars</h3>
           </div>
           <div class="panel-body">
-            <img alt="140x140" data-src="holder.js/140x140" class="img-rounded img-center" style="width: 100%;"
-              src="./images/scion.jpg" data-holder-rendered="true">
+            <img class="img-rounded img-center" 
+              src="./images/scion.jpg" data-holder-rendered="true"  width="400">
             <br /><br />
             <strong>Year</strong>: <span class="year">2000</span><br />
             <strong>Vehicle Brand</strong>: <span class="vehicle">Toyota</span><br />
@@ -114,10 +113,9 @@
               <option value="2">2 years</option>
               <option value="3">3 years</option>
             </select>
-            <button class="w-15 btn btn-primary btn-select" type="button" data-id="0">Renew</button>
+            <button class="w-15 btn btn-primary btn-select" type="button" data-id="0">Renew</button><br><br><br><br>
           </div>
         </div>
-      </div>
     </div>
   </div>
 
@@ -125,12 +123,13 @@
   <div class="container">
     <div id="addressContainer"  style="display: none;">
       <div class="panel panel-default panel-address">
-        <table>
+       
 
         <div class="panel-heading">
           <tr><th><h3 class="panel-title">User Address Information</h3></th></tr>
         </div>
-        <div class="panel-body">
+        <center>
+          <table>
           <tr><th><strong>Customer Name</strong>:</th>   <th><input id="custName" type="text" value=""></th></tr>
           <tr><th><strong>Street</strong>:</th>    <th><input id="street" type="text" value=""></th></tr>
           <tr><th><strong>City</strong>:</th>    <th><input id="city" type="text" value=""></th></tr>
@@ -138,7 +137,7 @@
           <tr><th><strong>Phone</strong>:</th>    <th><input id="phone" type="text" value=""></th></tr>
           <tr> <th><button id="btn-update-address" class="w-15 btn btn-primary" type="button">Update Information</button> </th></tr>
         </table>
-        </div>
+      </center>
       </div>
     </div>
   </div>
@@ -154,6 +153,7 @@
 
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="js/masonry.pkgd.min.js"></script>
   <!-- Include all compiled plugins (below), or include individual files as needed -->
   <script src="js/bootstrap.min.js"></script>
   <script src="js/web3.min.js"></script>
