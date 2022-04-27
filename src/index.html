@@ -38,14 +38,14 @@
               </a>
             </li>
             <li class="nav-item">
-              <li class="nav-item">
-                <a id="get-register-new-vehicle-link" class="nav-link" href="#registerNewVehicle">
-                  Register New Vehicle
-                </a>
-              </li>
-              <a id="get-my-vehicles-link" class="nav-link" href="#myVehicles">
-                My Vehicles
+            <li class="nav-item">
+              <a id="get-register-new-vehicle-link" class="nav-link" href="#registerNewVehicle">
+                Register New Vehicle
               </a>
+            </li>
+            <a id="get-my-vehicles-link" class="nav-link" href="#myVehicles">
+              My Vehicles
+            </a>
             </li>
             <li class="nav-item">
               <a id="get-address-update-link" class="nav-link" href="#updateUserAddress">
@@ -95,79 +95,119 @@
 
 
     <div id="carTemplate" style="display: none;">
-        <div class="panel panel-default panel-dmv">
-          <div class="panel-heading">
-            <h3 class="panel-title">Cars</h3>
-          </div>
-          <div class="panel-body">
-            <img class="img-rounded img-center" 
-              src="./images/scion.jpg" data-holder-rendered="true"  width="400">
-            <br /><br />
-            <strong>Year</strong>: <span class="year">2000</span><br />
-            <strong>Vehicle Brand</strong>: <span class="vehicle">Toyota</span><br />
-            <strong>Registration Cost</strong>: <span class="cost">100000000</span><br />
-            <strong>Years Currently Registered</strong>: <span class="yearsReg">0</span><br />
-            <select class="select" id="0">
-              <option value="1">1 year</option>
-              <option value="2">2 years</option>
-              <option value="3">3 years</option>
-              <option value="4">4 years</option>
-              <option value="5">5 years</option>
-            </select>
-            <button class="w-15 btn btn-primary btn-select" type="button" data-id="0">Renew</button><br><br><br><br>
-          </div>
-        </div>
-    </div>
-  </div>
-
-
-  <div class="container">
-    <div id="addressContainer"  style="display: none;">
-      <div class="panel panel-default panel-address">
+      <div class="panel panel-default panel-dmv">
         <div class="panel-heading">
-          <tr><th><h3 class="panel-title">User Address Information</h3></th></tr>
+          <h3 class="panel-title">Cars</h3>
         </div>
-        <center>
-          <table>
-          <tr><th><strong>Customer Name</strong>:</th>   <th><input id="custName" type="text" value=""></th></tr>
-          <tr><th><strong>Street</strong>:</th>    <th><input id="street" type="text" value=""></th></tr>
-          <tr><th><strong>City</strong>:</th>    <th><input id="city" type="text" value=""></th></tr>
-          <tr><th><strong>State</strong>:</th>    <th><input id="state" type="text" value=""></th></tr>
-          <tr><th><strong>Phone</strong>:</th>    <th><input id="phone" type="text" value=""></th></tr>
-          <tr> <th><button id="btn-update-address" class="w-15 btn btn-primary" type="button">Update Information</button> </th></tr>
-        </table>
-      </center>
+        <div class="panel-body">
+          <img class="img-rounded img-center" src="./images/scion.jpg" data-holder-rendered="true" width="400">
+          <br /><br />
+          <strong>Year</strong>: <span class="year">2000</span><br />
+          <strong>Vehicle Brand</strong>: <span class="vehicle">Toyota</span><br />
+          <strong>Registration Cost</strong>: <span class="cost">100000000</span><br />
+          <strong>Years Currently Registered</strong>: <span class="yearsReg">0</span><br />
+          <select class="select" id="0">
+            <option value="1">1 year</option>
+            <option value="2">2 years</option>
+            <option value="3">3 years</option>
+            <option value="4">4 years</option>
+            <option value="5">5 years</option>
+          </select>
+          <button class="w-15 btn btn-primary btn-select" type="button" data-id="0">Renew</button><br><br><br><br>
+        </div>
       </div>
     </div>
   </div>
 
 
   <div class="container">
-    <div id="reportSoldVehicleContainer"  style="display: none;">Report Vehicle Sold</div>
+    <div id="addressContainer" style="display: none;">
+      <div class="panel panel-default panel-address">
+        <div class="panel-heading">
+          <tr>
+            <th>
+              <h3 class="panel-title">User Address Information</h3>
+            </th>
+          </tr>
+        </div>
+        <center>
+          <table>
+            <tr>
+              <th><strong>Customer Name</strong>:</th>
+              <th><input id="custName" type="text" value=""></th>
+            </tr>
+            <tr>
+              <th><strong>Street</strong>:</th>
+              <th><input id="street" type="text" value=""></th>
+            </tr>
+            <tr>
+              <th><strong>City</strong>:</th>
+              <th><input id="city" type="text" value=""></th>
+            </tr>
+            <tr>
+              <th><strong>State</strong>:</th>
+              <th><input id="state" type="text" value=""></th>
+            </tr>
+            <tr>
+              <th><strong>Phone</strong>:</th>
+              <th><input id="phone" type="text" value=""></th>
+            </tr>
+            <tr>
+              <th><button id="btn-update-address" class="w-15 btn btn-primary" type="button">Update Information</button>
+              </th>
+            </tr>
+          </table>
+        </center>
+      </div>
+    </div>
   </div>
 
   <div class="container">
-    <div id="registerNewVehicleContainer"  style="display: none;"> <div id="regRow" class="row">
-      <!-- CARS LOAD HERE -->
-    </div>
-
-
-    <div id="regTemplate" style="display: none;">
+    <div id="registerNewVehicleContainer" style="display: none;">
+      <div id="regRow" class="row">
+        <!-- CARS LOAD HERE -->
+      </div>
+      <div id="regTemplate" style="display: none;">
         <div class="panel panel-default panel-dmv-reg">
           <div class="panel-heading">
             <h3 class="panel-title">Cars</h3>
           </div>
           <div class="panel-body">
-            <img class="img-rounded img-center" 
-              src="./images/scion.jpg" data-holder-rendered="true"  width="400">
+            <img class="img-rounded img-center" src="./images/scion.jpg" data-holder-rendered="true" width="400">
             <br /><br />
             <strong>Year</strong>: <span class="regyear">2000</span><br />
             <strong>Vehicle Brand</strong>: <span class="regvehicle">Toyota</span><br />
             <strong>Registration Cost</strong>: <span class="regcost">100000000</span><br />
-            <button class="w-15 btn btn-primary btn-select-new-reg" type="button" data-id="0">Register (1 year)</button><br><br><br><br>
+            <button class="w-15 btn btn-primary btn-select-new-reg" type="button" data-id="0">Register (1
+              year)</button><br><br><br><br>
           </div>
         </div>
-    </div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div id="reportSoldVehicleContainer" style="display: none;">
+      <div id="reportSaleRow" class="row">
+        <!-- CARS LOAD HERE -->
+      </div>
+      <div id="reportSaleTemplate" style="display: none;">
+        <div class="panel panel-default panel-dmv-sale">
+          <div class="panel-heading">
+            <h3 class="panel-title">Cars</h3>
+          </div>
+          <div class="panel-body">
+            <img class="img-rounded img-center" src="./images/scion.jpg" data-holder-rendered="true" width="400">
+            <br /><br />
+            <strong>Year</strong>: <span class="saleyear">2000</span><br />
+            <strong>Vehicle Brand</strong>: <span class="salevehicle">Toyota</span><br />
+            <strong>Registration Cost</strong>: <span class="salecost">100000000</span><br />
+            <strong>Years Currently Registered</strong>: <span class="saleYearsReg">0</span><br />
+            <button class="w-15 btn btn-primary btn-select-new-sale" type="button" data-id="0">Report As Sold</button><br><br><br><br>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

@@ -38,14 +38,35 @@ App = {
         regTemplate.find('.regvehicle').text(data[i].name);
         regTemplate.find('.regcost').text(data[i].cost);
         regTemplate.find('.regyear').text(data[i].year);
-        regTemplate.find('.regselect').attr('regid', i); //sets the index number for the chosen vehicle so it can be selected properly
+        regTemplate.find('.regselect').attr('regid', i); 
         regTemplate.find('.btn-select-new-reg').attr('data-id', data[i].id);
         regRow.append(regTemplate.html());
       }
     });
 
+    return App.initNewSales();
+  },
+
+  initNewSales: function () {
+    // Load vehicles available for reporting as sold
+    $.getJSON('../vehicles.json', function (data) {
+      var saleRow = $('#reportSaleRow');
+      var saleTemplate = $('#reportSaleTemplate');
+
+      for (i = 0; i < data.length; i++) {
+        saleTemplate.find('.panel-title').text(data[i].name);
+        saleTemplate.find('img').attr('src', data[i].picture);
+        saleTemplate.find('.salevehicle').text(data[i].name);
+        saleTemplate.find('.salecost').text(data[i].cost);
+        saleTemplate.find('.saleyear').text(data[i].year);
+        saleTemplate.find('.btn-select-new-sale').attr('data-id', data[i].id);
+        saleRow.append(saleTemplate.html());
+      }
+    });
+
     return App.initWeb3();
   },
+
 
   initWeb3: function () {
     if (typeof web3 !== 'undefined') {
@@ -82,6 +103,8 @@ App = {
     $(document).on('click', '#get-my-vehicles-link', App.calculateYearsRegistered);
     $(document).on('click', '#btn-update-address', App.updateAddress);
     $(document).on('click', '#get-address-update-link', App.grabAddress);
+    $(document).on('click', '#get-report-vehicle-sold-link', App.calculateYearsRegistered);
+    $(document).on('click', '.btn-select-new-sale', App.reportSold);
 
     App.contracts.dmv.deployed().then(function (instance) {
       var DMV_Wallet = instance;
@@ -278,12 +301,33 @@ App = {
             }
           });
         }
+        else if (window.location.hash == "#reportSoldVehicle"){
+          //Update sale counts
+          $('.panel-dmv-sale').eq(0).find('.saleYearsReg').text(userPurse[1].toString());
+          $('.panel-dmv-sale').eq(1).find('.saleYearsReg').text(userPurse[2].toString());
+          $('.panel-dmv-sale').eq(2).find('.saleYearsReg').text(userPurse[3].toString());
+          $('.panel-dmv-sale').eq(3).find('.saleYearsReg').text(userPurse[4].toString());
+          var divs = document.querySelectorAll(".panel-dmv-sale");
+          Array.from(divs).forEach(function (div) {
+            if (div.textContent.indexOf("Years Currently Registered: 0") >= 0) {
+              div.style.display = "none";
+            }
+          });
+        }
 
       });
     });
   },
 
-
+  
+  reportSold: function () {
+    App.contracts.dmv.deployed().then(function (instance) {
+      dmvInstance = instance;
+      dmvInstance.userPurchase(web3.eth.accounts[0]).then(function (userPurse) {
+        console.log("it works!!!");
+      });
+    });
+  },
 
 
 
