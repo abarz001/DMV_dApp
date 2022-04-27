@@ -104,7 +104,7 @@ App = {
     $(document).on('click', '#btn-update-address', App.updateAddress);
     $(document).on('click', '#get-address-update-link', App.grabAddress);
     $(document).on('click', '#get-report-vehicle-sold-link', App.calculateYearsRegistered);
-    $(document).on('click', '.btn-select-new-sale', App.reportSold);
+    $(document).on('click', '.btn-select-new-sale', App.select);
 
     App.contracts.dmv.deployed().then(function (instance) {
       var DMV_Wallet = instance;
@@ -238,27 +238,41 @@ App = {
       var selectedVehicle = document.getElementById(vehicleIDIndex);
       var vehicleRegCount = selectedVehicle.value;
       console.log(selectedVehicle);
-      //console.log("Quantity Selected:", vehicleRegCount);
-      //Call the select() function THEN update the purse with the local value
-      dmvInstance.select(vehicleID, vehicleRegCount).then(function () {
-        //call to update the user's current purse display 
-        App.updatePurse();
-        console.log("URL hash: ", window.location.hash);
-        if (window.location.hash == "#myVehicles") {
-          document.getElementById("get-my-vehicles-link").click();
-        }
-        else if (window.location.hash == "#registerNewVehicle"){
-          window.alert("Successfully registered new vehicle. Reloading DMV.");
-          location.reload();
-        }
-      });
+      if (window.location.hash == "#myVehicles" || window.location.hash == "#registerNewVehicle"){
+        dmvInstance.select(vehicleID, vehicleRegCount).then(function () {
+          //call to update the user's current purse display 
+          App.updatePurse();
+          console.log("URL hash: ", window.location.hash);
+          if (window.location.hash == "#myVehicles") {
+            document.getElementById("get-my-vehicles-link").click();
+          }
+          else if (window.location.hash == "#registerNewVehicle"){
+            window.alert("Successfully registered new vehicle. Reloading DMV.");
+            location.reload();
+          }
+        });
+      }
+      else if (window.location.hash == "#reportSoldVehicle"){
+        App.sellAVehicle(vehicleID);
+      }
     });
+  },
+
+  sellAVehicle: function(vehicleID){
+    App.contracts.dmv.deployed().then(function (instance) {
+    var dmvInstance = instance;
+    dmvInstance.sellVehicle(vehicleID);
+    console.log('Sold vehicle id ' + vehicleID);
+    App.updatePurse();
+    window.alert("Successfully sold vehicle. Please reload manually.");
+  });
   },
 
   updateCost: function (value) {
     //Update the vehicle registration cost with the supplied value
     $('.panel-dmv').find('.cost').text(value + "ETH");
     $('.panel-dmv-reg').find('.regcost').text(value + "ETH");
+    $('.panel-dmv-sale').find('.salecost').text(value + "ETH");
   },
 
 
@@ -318,17 +332,6 @@ App = {
       });
     });
   },
-
-  
-  reportSold: function () {
-    App.contracts.dmv.deployed().then(function (instance) {
-      dmvInstance = instance;
-      dmvInstance.userPurchase(web3.eth.accounts[0]).then(function (userPurse) {
-        console.log("it works!!!");
-      });
-    });
-  },
-
 
 
 };

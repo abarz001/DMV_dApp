@@ -8,7 +8,6 @@ contract DMV {
         uint256 id;
         string name;
         uint256 cost;
-        uint256 lifeTimeCount;
     }
     struct Purchases {
         uint256 purse;
@@ -43,8 +42,7 @@ contract DMV {
         vehicles[numVehicleRegistrations] = Vehicles(
             numVehicleRegistrations,
             _name,
-            globalPrice,
-            0
+            globalPrice
         );
     }
 
@@ -100,8 +98,6 @@ contract DMV {
 
         uint256 totalCost = _count * vehicles[vehicleID].cost;
 
-        vehicles[vehicleID].lifeTimeCount += _count;
-
         if (vehicleID == 1) {
             userPurchase[buyer].scionRenewCount += _count;
         } else if (vehicleID == 2) {
@@ -110,6 +106,32 @@ contract DMV {
             userPurchase[buyer].viperRenewCount += _count;
         } else if (vehicleID == 4) {
             userPurchase[buyer].ferrariRenewCount += _count;
+        }
+        updateUserBalance(totalCost);
+        return true;
+    }
+
+       function sellVehicle(uint256 vehicleID)
+        public
+        payable
+        returns (bool)
+    {
+        buyer = msg.sender;
+        require(
+            userPurchase[buyer].purse >= (vehicles[vehicleID].cost),
+            "Error: Insufficient Funds"
+        );
+
+        uint256 totalCost = vehicles[vehicleID].cost;
+
+        if (vehicleID == 1) {
+            userPurchase[buyer].scionRenewCount = 0;
+        } else if (vehicleID == 2) {
+            userPurchase[buyer].civicRenewCount = 0;
+        } else if (vehicleID == 3) {
+            userPurchase[buyer].viperRenewCount = 0;
+        } else if (vehicleID == 4) {
+            userPurchase[buyer].ferrariRenewCount = 0;
         }
         updateUserBalance(totalCost);
         return true;
