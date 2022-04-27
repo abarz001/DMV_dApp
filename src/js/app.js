@@ -19,8 +19,28 @@ App = {
         carTemplate.find('.year').text(data[i].year);
         carTemplate.find('.select').attr('id', i); //sets the index number for the chosen vehicle so it can be selected properly
         carTemplate.find('.btn-select').attr('data-id', data[i].id);
-
         carRow.append(carTemplate.html());
+      }
+    });
+
+    return App.initNewRegistrations();
+  },
+
+  initNewRegistrations: function () {
+    // Load vehicles available for registration
+    $.getJSON('../vehicles.json', function (data) {
+      var regRow = $('#regRow');
+      var regTemplate = $('#regTemplate');
+
+      for (i = 0; i < data.length; i++) {
+        regTemplate.find('.panel-title').text(data[i].name);
+        regTemplate.find('img').attr('src', data[i].picture);
+        regTemplate.find('.regvehicle').text(data[i].name);
+        regTemplate.find('.regcost').text(data[i].cost);
+        regTemplate.find('.regyear').text(data[i].year);
+        regTemplate.find('.regselect').attr('regid', i); //sets the index number for the chosen vehicle so it can be selected properly
+        regTemplate.find('.btn-select-new-reg').attr('data-id', data[i].id);
+        regRow.append(regTemplate.html());
       }
     });
 
@@ -58,6 +78,7 @@ App = {
     $(document).on('click', '.btn-deposit', App.depositEth);
     $(document).on('click', '.btn-return', App.cReturn);
     $(document).on('click', '.btn-select', App.select);
+    $(document).on('click', '.btn-select-new-reg', App.select);
     $(document).on('click', '#get-my-vehicles-link', App.calculateYearsRegistered);
     $(document).on('click', '#btn-update-address', App.updateAddress);
     $(document).on('click', '#get-address-update-link', App.grabAddress);
@@ -190,30 +211,31 @@ App = {
       console.log(vehicleID);
 
       //Grab the number of vehicles from the dropdown selection
-      //vehicleID - 1 because vehicleID is keyed to 1-4 and ElementIds are keyed to 0-3
       var vehicleIDIndex = vehicleID - 1;
       var selectedVehicle = document.getElementById(vehicleIDIndex);
-      console.log("elementbyID:", selectedVehicle);
       var vehicleRegCount = selectedVehicle.value;
-      console.log("Quantity Selected:", vehicleRegCount);
-
+      console.log(selectedVehicle);
+      //console.log("Quantity Selected:", vehicleRegCount);
       //Call the select() function THEN update the purse with the local value
       dmvInstance.select(vehicleID, vehicleRegCount).then(function () {
         //call to update the user's current purse display 
         App.updatePurse();
-
         console.log("URL hash: ", window.location.hash);
         if (window.location.hash == "#myVehicles") {
           document.getElementById("get-my-vehicles-link").click();
         }
+        else if (window.location.hash == "#registerNewVehicle"){
+          window.alert("Successfully registered new vehicle. Reloading DMV.");
+          location.reload();
+        }
       });
     });
-
   },
 
   updateCost: function (value) {
     //Update the vehicle registration cost with the supplied value
     $('.panel-dmv').find('.cost').text(value + "ETH");
+    $('.panel-dmv-reg').find('.regcost').text(value + "ETH");
   },
 
 
@@ -242,21 +264,29 @@ App = {
         console.log("Num Years Viper Registered:", userPurse[3].toString());
         console.log("Num Years Ferrari Registered:", userPurse[4].toString());
 
-        //Update registration counts
-        $('.panel-dmv').eq(0).find('.yearsReg').text(userPurse[1].toString());
-        $('.panel-dmv').eq(1).find('.yearsReg').text(userPurse[2].toString());
-        $('.panel-dmv').eq(2).find('.yearsReg').text(userPurse[3].toString());
-        $('.panel-dmv').eq(3).find('.yearsReg').text(userPurse[4].toString());
-        //$('.panel-dmv:contains("Years Currently Registered: 0")').hide()
-        var divs = document.querySelectorAll(".panel-dmv");
-        Array.from(divs).forEach(function (div) {
-          if (div.textContent.indexOf("Years Currently Registered: 0") >= 0) {
-            div.style.display = "none";
-          }
-        });
+
+        if (window.location.hash == "#myVehicles") {
+          //Update registration counts
+          $('.panel-dmv').eq(0).find('.yearsReg').text(userPurse[1].toString());
+          $('.panel-dmv').eq(1).find('.yearsReg').text(userPurse[2].toString());
+          $('.panel-dmv').eq(2).find('.yearsReg').text(userPurse[3].toString());
+          $('.panel-dmv').eq(3).find('.yearsReg').text(userPurse[4].toString());
+          var divs = document.querySelectorAll(".panel-dmv");
+          Array.from(divs).forEach(function (div) {
+            if (div.textContent.indexOf("Years Currently Registered: 0") >= 0) {
+              div.style.display = "none";
+            }
+          });
+        }
+
       });
     });
   },
+
+
+
+
+
 };
 
 $(function () {

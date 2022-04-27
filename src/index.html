@@ -38,6 +38,11 @@
               </a>
             </li>
             <li class="nav-item">
+              <li class="nav-item">
+                <a id="get-register-new-vehicle-link" class="nav-link" href="#registerNewVehicle">
+                  Register New Vehicle
+                </a>
+              </li>
               <a id="get-my-vehicles-link" class="nav-link" href="#myVehicles">
                 My Vehicles
               </a>
@@ -50,11 +55,6 @@
             <li class="nav-item">
               <a id="get-report-vehicle-sold-link" class="nav-link" href="#reportSoldVehicle">
                 Report Vehicle Sold
-              </a>
-            </li>
-            <li class="nav-item">
-              <a id="get-register-new-vehicle-link" class="nav-link" href="#registerNewVehicle">
-                Register New Vehicle
               </a>
             </li>
           </ul>
@@ -76,7 +76,6 @@
         </select><br /><br>
         <button type="button" class="w-15 btn btn-primary btn-deposit">Deposit Into Your DMV Balance</button>
         <button type="button" class="w-15 btn btn-primary btn-return">Withdraw DMV Balance Back To Wallet</button>
-        <button type="button" class="w-15 btn btn-primary btn-test">Test</button>
       </div>
     </div> <br />
     <div class="section">
@@ -112,6 +111,8 @@
               <option value="1">1 year</option>
               <option value="2">2 years</option>
               <option value="3">3 years</option>
+              <option value="4">4 years</option>
+              <option value="5">5 years</option>
             </select>
             <button class="w-15 btn btn-primary btn-select" type="button" data-id="0">Renew</button><br><br><br><br>
           </div>
@@ -123,8 +124,6 @@
   <div class="container">
     <div id="addressContainer"  style="display: none;">
       <div class="panel panel-default panel-address">
-       
-
         <div class="panel-heading">
           <tr><th><h3 class="panel-title">User Address Information</h3></th></tr>
         </div>
@@ -148,12 +147,31 @@
   </div>
 
   <div class="container">
-    <div id="registerNewVehicleContainer"  style="display: none;">Register New Vehicle</div>
+    <div id="registerNewVehicleContainer"  style="display: none;"> <div id="regRow" class="row">
+      <!-- CARS LOAD HERE -->
+    </div>
+
+
+    <div id="regTemplate" style="display: none;">
+        <div class="panel panel-default panel-dmv-reg">
+          <div class="panel-heading">
+            <h3 class="panel-title">Cars</h3>
+          </div>
+          <div class="panel-body">
+            <img class="img-rounded img-center" 
+              src="./images/scion.jpg" data-holder-rendered="true"  width="400">
+            <br /><br />
+            <strong>Year</strong>: <span class="regyear">2000</span><br />
+            <strong>Vehicle Brand</strong>: <span class="regvehicle">Toyota</span><br />
+            <strong>Registration Cost</strong>: <span class="regcost">100000000</span><br />
+            <button class="w-15 btn btn-primary btn-select-new-reg" type="button" data-id="0">Register (1 year)</button><br><br><br><br>
+          </div>
+        </div>
+    </div></div>
   </div>
 
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script src="js/masonry.pkgd.min.js"></script>
   <!-- Include all compiled plugins (below), or include individual files as needed -->
   <script src="js/bootstrap.min.js"></script>
   <script src="js/web3.min.js"></script>
