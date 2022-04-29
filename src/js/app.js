@@ -105,6 +105,7 @@ App = {
     $(document).on('click', '#get-address-update-link', App.grabAddress);
     $(document).on('click', '#get-report-vehicle-sold-link', App.calculateYearsRegistered);
     $(document).on('click', '.btn-select-new-sale', App.select);
+    $(document).on('click', '.btn-register-other', App.registerOtherVehicle);
 
     App.contracts.dmv.deployed().then(function (instance) {
       var DMV_Wallet = instance;
@@ -158,11 +159,6 @@ App = {
           document.getElementById("city").value,
           document.getElementById("state").value,
           document.getElementById("phone").value);
-        // console.log("User's State:", userAddress[0]);
-        // console.log("User's State:", userAddress[1]);
-        // console.log("User's State:", userAddress[2]);
-        // console.log("User's State:", userAddress[3]);
-        // console.log("User's State:", userAddress[4]);
       }).then(function () {
         App.updatePurse();
       })
@@ -185,6 +181,40 @@ App = {
 
   },
 
+  registerOtherVehicle: function () {
+    var dmvInstance;
+    //deploy dmv contract then set the instance variable
+    App.contracts.dmv.deployed().then(function (instance) {
+      dmvInstance = instance;
+      dmvInstance.userAddress(web3.eth.accounts[0]).then(function (userAddress) {
+        console.log(document.getElementById("inputotherregyear").value);
+        console.log(document.getElementById("inputotherregvehicle").value);
+        dmvInstance.addOtherVehicle(document.getElementById("inputotherregyear").value,
+          document.getElementById("inputotherregvehicle").value);
+      }).then(function () {
+        App.updatePurse();
+      })
+    });
+  },
+
+  grabOtherVehicle: function () {
+    var dmvInstance;
+    //deploy dmv contract then set the instance variable
+    App.contracts.dmv.deployed().then(function (instance) {
+      dmvInstance = instance;
+      dmvInstance.otherVehicle(web3.eth.accounts[0]).then(function (otherVehicle) {
+        //document.getElementById('inputothervehyear').value = otherVehicle[0].toString();
+        //document.getElementById('inputothervehvehicle').value = otherVehicle[1].toString();
+        var otherTemplate = $('#regVehicleTemplate2');
+        var otherTemplate2 = $('#regSaleTemplate2');
+        otherTemplate.find('.inputothervehyear').text(otherVehicle[0].toString());
+        otherTemplate2.find('.inputothersaleyear').text(otherVehicle[0].toString());
+        otherTemplate.find('.inputothervehvehicle').text(otherVehicle[1].toString());
+        otherTemplate2.find('.inputothersalevehicle').text(otherVehicle[1].toString());
+      });
+    });
+
+  },
 
   depositEth: function () {
     var dmvInstance;
@@ -264,7 +294,6 @@ App = {
     dmvInstance.sellVehicle(vehicleID);
     console.log('Sold vehicle id ' + vehicleID);
     App.updatePurse();
-    window.alert("Successfully sold vehicle. Please reload manually.");
   });
   },
 
@@ -300,6 +329,7 @@ App = {
         console.log("Num Years Civic Registered:", userPurse[2].toString());
         console.log("Num Years Viper Registered:", userPurse[3].toString());
         console.log("Num Years Ferrari Registered:", userPurse[4].toString());
+        console.log("Num Years Lexus Registered:", userPurse[5].toString());
 
 
         if (window.location.hash == "#myVehicles") {
@@ -308,12 +338,24 @@ App = {
           $('.panel-dmv').eq(1).find('.yearsReg').text(userPurse[2].toString());
           $('.panel-dmv').eq(2).find('.yearsReg').text(userPurse[3].toString());
           $('.panel-dmv').eq(3).find('.yearsReg').text(userPurse[4].toString());
+          $('.panel-dmv').eq(4).find('.yearsReg').text(userPurse[5].toString());
           var divs = document.querySelectorAll(".panel-dmv");
           Array.from(divs).forEach(function (div) {
             if (div.textContent.indexOf("Years Currently Registered: 0") >= 0) {
               div.style.display = "none";
             }
           });
+            dmvInstance.otherVehicle(web3.eth.accounts[0]).then(function (otherVehicle) {
+              var otherTemplate = $('#regVehicleTemplate2');
+              if (otherVehicle[3].toString() != "1"){
+                var divs = document.querySelectorAll("#regVehicleTemplate2");
+                Array.from(divs).forEach(function (div) {
+                    div.style.display = "none";
+                });
+              }
+              otherTemplate.find('.inputothervehyear').text(otherVehicle[0].toString());
+              otherTemplate.find('.inputothervehvehicle').text(otherVehicle[1].toString());
+            });
         }
         else if (window.location.hash == "#reportSoldVehicle"){
           //Update sale counts
@@ -321,14 +363,26 @@ App = {
           $('.panel-dmv-sale').eq(1).find('.saleYearsReg').text(userPurse[2].toString());
           $('.panel-dmv-sale').eq(2).find('.saleYearsReg').text(userPurse[3].toString());
           $('.panel-dmv-sale').eq(3).find('.saleYearsReg').text(userPurse[4].toString());
+          $('.panel-dmv-sale').eq(4).find('.saleYearsReg').text(userPurse[5].toString());
+          $('.panel-dmv-sale').eq(5).find('.saleYearsReg').text(userPurse[6].toString());
           var divs = document.querySelectorAll(".panel-dmv-sale");
           Array.from(divs).forEach(function (div) {
             if (div.textContent.indexOf("Years Currently Registered: 0") >= 0) {
               div.style.display = "none";
             }
+
+            dmvInstance.otherVehicle(web3.eth.accounts[0]).then(function (otherVehicle) {
+              var otherTemplate = $('#regVehicleTemplate2');
+              if (otherVehicle[3].toString() != "1"){
+                var divs = document.querySelectorAll("#regSaleTemplate2");
+                Array.from(divs).forEach(function (div) {
+                    div.style.display = "none";
+                });
+              }
+            });
           });
         }
-
+        App.grabOtherVehicle();
       });
     });
   },

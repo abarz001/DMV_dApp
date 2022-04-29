@@ -9,12 +9,20 @@ contract DMV {
         string name;
         uint256 cost;
     }
+    struct VehicleOther {
+        string year;
+        string vehicleBrand;
+        uint256 cost;
+        uint256 yearsReg;
+    }
     struct Purchases {
         uint256 purse;
         uint256 scionRenewCount;
         uint256 civicRenewCount;
         uint256 viperRenewCount;
         uint256 ferrariRenewCount;
+        uint256 lexusRenewCount;
+        uint256 otherRenewCount;
     }
     struct AddressDetails{
         string custName;
@@ -23,8 +31,11 @@ contract DMV {
         string state;
         string phone;
     }
+
     uint256 numVehicleRegistrations = 0;
+
     mapping(uint256 => Vehicles) public vehicles;
+    mapping(address => VehicleOther) public otherVehicle;
     mapping(address => Purchases) public userPurchase;
     mapping(address => AddressDetails) public userAddress;
 
@@ -35,6 +46,7 @@ contract DMV {
         addVehicle("Civic");
         addVehicle("Viper");
         addVehicle("Ferrari");
+        addVehicle("Lexus");
     }
 
     function addVehicle(string memory _name) private {
@@ -44,6 +56,13 @@ contract DMV {
             _name,
             globalPrice
         );
+    }
+
+     function addOtherVehicle(string memory _year, string memory _brand) public {
+        otherVehicle[msg.sender].year = _year;
+        otherVehicle[msg.sender].vehicleBrand = _brand;
+        otherVehicle[msg.sender].cost = 1000000000000000;
+        otherVehicle[msg.sender].yearsReg = 1;
     }
 
     function getGlobalPrice() public view returns (uint256) {
@@ -60,6 +79,7 @@ contract DMV {
         vehicles[2].cost = globalPrice;
         vehicles[3].cost = globalPrice;
         vehicles[4].cost = globalPrice;
+        vehicles[5].cost = globalPrice;
     }
 
     function deposit() public payable returns (uint256, uint256) {
@@ -94,10 +114,7 @@ contract DMV {
             "Error: Insufficient Funds"
         );
 
-        require((vehicleID > 0 && vehicleID < 5), "Error: Invalid Selection");
-
         uint256 totalCost = _count * vehicles[vehicleID].cost;
-
         if (vehicleID == 1) {
             userPurchase[buyer].scionRenewCount += _count;
         } else if (vehicleID == 2) {
@@ -106,6 +123,9 @@ contract DMV {
             userPurchase[buyer].viperRenewCount += _count;
         } else if (vehicleID == 4) {
             userPurchase[buyer].ferrariRenewCount += _count;
+        }
+        else if (vehicleID == 5) {
+            userPurchase[buyer].lexusRenewCount += _count;
         }
         updateUserBalance(totalCost);
         return true;
@@ -133,6 +153,9 @@ contract DMV {
         } else if (vehicleID == 4) {
             userPurchase[buyer].ferrariRenewCount = 0;
         }
+         else if (vehicleID == 5) {
+            userPurchase[buyer].lexusRenewCount = 0;
+        }
         updateUserBalance(totalCost);
         return true;
     }
@@ -152,6 +175,7 @@ contract DMV {
             uint256,
             uint256,
             uint256,
+            uint256,
             uint256
         )
     {
@@ -159,7 +183,8 @@ contract DMV {
             userPurchase[buyer].scionRenewCount,
             userPurchase[buyer].civicRenewCount,
             userPurchase[buyer].viperRenewCount,
-            userPurchase[buyer].ferrariRenewCount
+            userPurchase[buyer].ferrariRenewCount,
+            userPurchase[buyer].lexusRenewCount
         );
     }
 }
