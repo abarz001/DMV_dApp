@@ -1,4 +1,3 @@
-//The init functions and balance related functions have been reused from CS764 ODU's example
 App = {
   web3Provider: null,
   contracts: {},
